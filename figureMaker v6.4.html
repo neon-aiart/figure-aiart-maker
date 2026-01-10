@@ -19,7 +19,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐥 フィギュア化メーカー v6.3</title>
+    <title>🐥 フィギュア化メーカー v6.4</title>
     <meta name="author" content="ねおん">
     <meta name="license" content="CC BY-NC 4.0">
     <!-- Tailwind CSSのCDNを読み込み -->
@@ -446,7 +446,7 @@
                     <option value="9:16">9:16 （縦長 動画サイズ）</option>
                 </select>
                 <div class="h-full flex items-center justify-center">
-                    <button id="multi-generate-toggle" data-is-multi="false" class="w-auto h-10 bg-blue-500 hover:bg-blue-400 text-white font-bold py-3 px-4 rounded-full text-sm transition-transform transform hover:scale-105 duration-150 ease-in-out flex items-center justify-center disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed" disabled>
+                    <button id="multi-generate-toggle" data-is-multi="false" class="w-auto h-10 bg-blue-500 hover:bg-blue-400 text-white font-bold py-3 px-4 rounded-full text-sm transition-transform transform hover:scale-105 duration-150 ease-in-out flex items-center justify-center disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100" disabled>
                         <span class="material-symbols-outlined align-middle mr-2">grid_view</span>
                         <span>４枚</span>
                     </button>
@@ -562,7 +562,7 @@
 
     <script>
         /* Copyright (c) 2025 ねおん / CC BY-NC 4.0 */
-        const APP_VERSION = '6.3';
+        const APP_VERSION = '6.4';
 
         document.addEventListener('DOMContentLoaded', () => {
             const elements = {
@@ -758,10 +758,10 @@
                         if (result.wasProblematic) {
                             updateImageHistory(result.base64Data, currentImagePrompt);
                         } else {
-                            console.warn('指定箇所の修正を試みましたが、画像は変更されませんでした。');
+                            console.warn('[figureMaker] 指定箇所の修正を試みましたが、画像は変更されませんでした。');
                         }
                     } catch (error) {
-                        console.error('指定箇所の修正に失敗しました:', error);
+                        console.error('[figureMaker] 指定箇所の修正に失敗しました:', error);
                     } finally {
                         handleFixImage('logo');
                     }
@@ -911,12 +911,12 @@
                     const answer = result.candidates[0].content.parts[0].text.trim();
                     return answer.toUpperCase() === 'NONE' ? null : answer;
                 } catch (error) {
-                    console.error('Copyright check failed:', error);
+                    console.error('[figureMaker] Copyright check failed:', error);
                     return null;
                 }
             }
 
-            // 著作権チェックと修正を統合した関数
+            // 著作権保護対象を修正する関数
             async function checkAndFixCopyright(base64Data, isImageFixing = false, logoLocationHint = null) {
                 /* Natural Inpainting Command: Remove the watermark, text, or logo from the specific area of Image 1 and naturally fill the space with seamless, contextually appropriate background details. The output must be perfectly consistent with the surrounding image texture and style. */
                 let prompt = `Your task is a precision inpainting process to clean and refine the image.
@@ -1060,29 +1060,32 @@
                         return dataUrl.substring(base64Prefix.length);
                     } else {
                         // PNG形式でBase64が取得できなかった場合はエラー
-                        console.error("Canvas toDataURL failed to return PNG format.");
+                        console.error("[figureMaker] Canvas toDataURL failed to return PNG format.");
                         return null; 
                     }
                 } catch (e) {
-                    console.error("Canvas Base64 generation failed:", e);
+                    console.error("[figureMaker] Canvas Base64 generation failed:", e);
                     return null;
                 }
             }
 
+            // 被写体判定
             async function detectSubject(imageData) {
-                const payload = { contents: [{ parts: [{ text: "Analyze the main subject of this image. Choose only one from 'person', 'animal', 'food', 'object', 'landscape'. Respond with only one category name in English." }, { inlineData: { mimeType: 'image/jpeg', data: imageData } }] }] };
+                const payload = { contents: [{ parts: [{ text: "Analyze the main subject of this image. Choose only one from 'person', 'animal', 'food', 'object', 'landscape', or 'other' if none apply. Respond with only one category name in English." }, { inlineData: { mimeType: 'image/jpeg', data: imageData } }] }] };
                 try {
                     const result = await callGeminiAPI(payload);
+                    if (!result || !result.candidates || result.candidates.length === 0) {
+                         throw new Error('被写体判定中にAPIが空の応答を返しました。コンテンツ安全ポリシーに違反した可能性があります。');
+                    }
                     const detected = result.candidates[0].content.parts[0].text.trim().toLowerCase();
                     const subjectMap = { person: '人物', animal: '動物', food: '食べ物', object: 'モノ', landscape: '風景' };
-                    return Object.keys(subjectMap).find(key => detected.includes(key)) || 'object';
+                    return Object.keys(subjectMap).find(key => detected.includes(key)) || 'subject';
                 } catch (error) {
-                    console.error('Subject detection failed:', error);
-                    showError('被写体の自動判定に失敗しました。デフォルトの「人物」で続行します。');
-                    return 'person';
+                    throw new Error('被写体の自動判定に失敗しました。安全ポリシー違反やAPI通信の問題の可能性があります。');
                 }
             }
 
+            // 翻訳
             async function translateText(text, stage) {
                 let useSwitch;
                 let isCustomFix = false;
@@ -1092,11 +1095,11 @@
                     useSwitch = elements.customTranslateSwitch;
                     isCustomFix = true;
                 } else {
-                    console.warn(`不明な翻訳ステージが渡されました: ${stage}`);
+                    console.warn(`[figureMaker] 不明な翻訳ステージが渡されました: ${stage}`);
                     return text;
                 }
                 if (useSwitch && !useSwitch.checked) {
-                    console.log(`自動翻訳がOFFのため、スキップしました (Stage: ${stage})。`);
+                    console.log(`[figureMaker] 自動翻訳がOFFのため、スキップしました (Stage: ${stage})。`);
                     return text;
                 }
 
@@ -1126,12 +1129,13 @@
                     cacheMap[cacheKey] = translatedText; // キャッシュに保存
                     return translatedText;
                 } catch (error) {
-                    console.error('Translation failed:', error);
+                    console.error('[figureMaker] Translation failed:', error);
                     showError('翻訳に失敗しました。元のテキストを使用します。');
                     return text;
                 }
             }
 
+            // プロンプト組立
             function buildPrompts(subjectType) {
                 const mode = elements.modeSelect.value;
                 const type = elements.typeSelect.value;
@@ -1203,6 +1207,7 @@
                 return { finalPrompt, finalNegative };
             }
 
+            // 生成
             async function handleGeneration() {
                 if (!uploadedImageData) {
                     showError('画像をアップロードしてください。');
@@ -1212,6 +1217,19 @@
                     handleFixImage('logo');
                 }
                 elements.errorMessage.classList.add('hidden');
+
+                // 左右反転の状態をリセット
+                if (isImageFlipped) {
+                    isImageFlipped = false; // 状態変数を false に戻す
+                    elements.generatedImage.classList.remove('flipped'); // 画像から 'flipped' クラスを削除
+                    elements.flipImageBtn.classList.remove('is-active'); // ボタンのUI状態をリセット is-activeを削除
+                    // ボタンの色をデフォルトに戻す (DEFAULT_CLASSES/ACTIVE_CLASSESはスコープ外のため直書き)
+                    const DEFAULT_CLASSES = ['bg-gray-700', 'hover:bg-gray-600'];
+                    const ACTIVE_CLASSES = ['bg-orange-600', 'hover:bg-orange-500'];
+                    // アクティブな色を削除し、デフォルトの色を追加
+                    elements.flipImageBtn.classList.remove(...ACTIVE_CLASSES);
+                    elements.flipImageBtn.classList.add(...DEFAULT_CLASSES);
+                }
 
                 setLoadingState(true, '被写体を判定中...');
                 try {
@@ -1300,11 +1318,11 @@
                             if (logoLocationHint) {
                                 result = await checkAndFixCopyright(finalBase64Data, true, logoLocationHint);
                             } else {
-                                console.log('生成画像:ロゴなし。自動修正をスキップ。');
+                                console.log('[figureMaker] 生成画像:ロゴなし。自動修正をスキップ。');
                                 result = { base64Data:finalBase64Data, wasProblematic:false };
                             }
                         } catch (error) {
-                            console.error('自動修正中にエラーが発生しました:', error);
+                            console.error('[figureMaker] 自動修正中にエラーが発生しました:', error);
                             throw error;
                         } finally {
                             setImageLoadingState(false);
@@ -1325,7 +1343,7 @@
                         throw new Error('最終的な画像データの生成に失敗しました。');
                     }
                 } catch (error) {
-                    console.error('Generation failed:', error);
+                    console.error('[figureMaker] Generation failed:', error);
                     showError(error.message || '生成に失敗しました。詳細はコンソールを確認してください。');
                 } finally {
                     setLoadingState(false);
@@ -1456,7 +1474,7 @@
                     updateImageHistory(fixedBase64Data, promptToSave);
 
                 } catch (error) {
-                    console.error('修正に失敗しました:', error);
+                    console.error('[figureMaker] 修正に失敗しました:', error);
                     showError(error.message || '修正に失敗しました。');
                     if (type === 'custom') {
                         elements.customFixPrompt.value = customPrompt; 
@@ -1480,7 +1498,7 @@
                         const result = await callGeminiAPI(payload);
                         const textPart = result.candidates?.[0]?.content?.parts?.find(p => p.text);
                         if (textPart && textPart.text) {
-                            console.error("API Text Response:", textPart.text); // 詳細はコンソールに表示
+                            console.error("[figureMaker] API Text Response:", textPart.text); // 詳細はコンソールに表示
                             throw new Error('APIがテキストで応答しました。');   // UIにはシンプルなメッセージを表示
                         }
                         const base64Data = result.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
@@ -1488,7 +1506,7 @@
                             return base64Data;
                         }
                     } catch (error) {
-                        console.error(`Attempt ${i + 1} failed:`, error.message);
+                        console.error(`[figureMaker] Attempt ${i + 1} failed:`, error.message);
                         if (i === maxRetries - 1) {
                             throw new Error(`すべてのリトライに失敗しました。\n最後の試行のエラー: ${error.message}`);
                         }
@@ -1720,7 +1738,7 @@
                                 elements.downloadBtn.dataset.tempUrl = tempUrl; 
                             })
                             .catch(e => {
-                                console.error("ダウンロード準備に失敗しました:", e);
+                                console.error("[figureMaker] ダウンロード準備に失敗しました:", e);
                                 showError('ダウンロード準備中にエラーが発生しました。');
                             })
                             .finally(() => {
@@ -1729,7 +1747,7 @@
                                 elements.downloadBtn.disabled = false;
                             });
                     } catch (e) {
-                        console.error("PNG変換中に失敗しました:", e);
+                        console.error("[figureMaker] PNG変換中に失敗しました:", e);
                         showError('PNGへの変換中にエラーが発生しました。');
                         elements.downloadBtn.classList.remove('opacity-50', 'pointer-events-none');
                         elements.downloadBtn.disabled = false;
@@ -1737,7 +1755,7 @@
                 };
 
                 img.onerror = () => {
-                    console.error("画像の読み込みに失敗しました。");
+                    console.error("[figureMaker] 画像の読み込みに失敗しました。");
                     showError('画像の読み込みに失敗しました。');
                     elements.downloadBtn.classList.remove('opacity-50', 'pointer-events-none');
                     elements.downloadBtn.disabled = false;
@@ -1748,7 +1766,8 @@
             }
 
             function showError(message) {
-                elements.errorMessage.innerHTML = message;
+                const htmlMessage = message.replace(/\n/g, '<br>');
+                elements.errorMessage.innerHTML = htmlMessage;
                 elements.errorMessage.classList.remove('hidden');
                 elements.errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
@@ -1840,7 +1859,7 @@
                     buttonElement.innerHTML = `<span class="material-symbols-outlined text-sm text-green-400">check</span>`;
                     setTimeout(() => { buttonElement.innerHTML = originalIcon; }, 1500);
                 } catch (err) {
-                    console.error('Copy failed', err);
+                    console.error('[figureMaker] Copy failed', err);
                     showError('コピーに失敗しました。');
                 }
                 document.body.removeChild(textArea);
