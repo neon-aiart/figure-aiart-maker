@@ -28,6 +28,8 @@
 
 ## 🌟 v6.3 での主な進化 (Major Update!)
 
+<img src="https://raw.githubusercontent.com/neon-aiart/figure-maker-gemini-canvas/main/figure_maker_20250924_174842.png" style="height: 200px; width: 200px; object-fit: contain;" align="right" alt="Meshi Art Sample" />
+
 **構図の自由化**と**操作性**を大幅に向上させたメジャーアップデートです。
 
 ### 1. 構図の自由化：アスペクト比の選択に対応
@@ -84,7 +86,7 @@
 ## 📝 更新履歴 (v3.9 → v6.4)
 
 ### v6.3 → v6.4 の変更点
-* ☑️ ４枚生成ボタン: disabledでscaleしちゃうの修正（実装されたらdisable削除）
+* ☑️ ４枚生成ボタン(未実装): disabledでscaleしちゃうの修正（実装されたらdisable削除）
 * ☑️ 新しく生成をするときに反転状態を解除
 * ☑️ 安全フィルターで生成AIに届く前に削除された場合は中断
 
