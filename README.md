@@ -1,7 +1,11 @@
 # 🐥 フィギュア化メーカー (Figure Maker) v6.4
 
+<img src="https://raw.githubusercontent.com/neon-aiart/figure-maker-gemini-canvas/main/figure_maker_20250924_174842.png" style="height: 200px; width: 200px; object-fit: contain;" align="right" alt="Meshi Art Sample" />
+
 このアプリケーションは、**GoogleのGemini Canvas環境**専用の画像生成補助アプリです。  
 **元画像をアップロードするだけ**で、まるで市販されているような**高品質なフィギュア風AIイラスト**に変換（生成補助）します。
+
+<br clear="right">
 
 ---
 
@@ -27,8 +31,6 @@
 ---
 
 ## 🌟 v6.3 での主な進化 (Major Update!)
-
-<img src="https://raw.githubusercontent.com/neon-aiart/figure-maker-gemini-canvas/main/figure_maker_20250924_174842.png" style="height: 200px; width: 200px; object-fit: contain;" align="right" alt="Meshi Art Sample" />
 
 **構図の自由化**と**操作性**を大幅に向上させたメジャーアップデートです。
 
