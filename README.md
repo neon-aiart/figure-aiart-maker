@@ -43,7 +43,9 @@ v6.4 (2026-02-10) [https://gemini.google.com/share/cdbce5ec46a6](https://gemini.
 **構図の自由化**と**操作性**を大幅に向上させたメジャーアップデートです。  
 
 ### 1. 構図の自由化：アスペクト比の選択に対応  
+
 **画像の縦横比（アスペクト比）の固定**を解消しました。  
+
 * 元絵の内容を活かしつつ、**16:9**（横長）や **1:1**（正方形）など、**9種類のアスペクト比**を自由に選択して拡張生成できます。  
 * ポスターやSNSアイコンなど、出力先に合わせた自由な構図でフィギュアを生成できます。  
 
@@ -105,15 +107,18 @@ v6.4 (2026-02-10) [https://gemini.google.com/share/cdbce5ec46a6](https://gemini.
 ## 📝 更新履歴 (v3.9 → v6.5)  
 
 ### v6.5 (Current Release)  
+
 ☑️ ライセンスを `PolyForm Noncommercial 1.0.0` に変更  
 ✅ テキスト応答Geminiモデルを `gemini-2.5-flash-preview-09-2025` に変更  
 
 ### v6.4  
+
 ☑️ ４枚生成ボタン(未実装): disabledでscaleしちゃうの修正（実装されたらdisable削除）  
 ☑️ 新しく生成をするときに反転状態を解除  
 ☑️ 安全フィルターで生成AIに届く前に削除された場合は中断  
 
 ### v6.3  
+
 ✅ 生成段階で違法ロゴが生成されるのを抑制  
 ✅ 「さらに強化」の改善  
 ☑️ 「元に戻す」「やり直す」履歴の数の上限 追加 MAX:20  
@@ -121,37 +126,46 @@ v6.4 (2026-02-10) [https://gemini.google.com/share/cdbce5ec46a6](https://gemini.
 ✅ アスペクト比の変更 追加  
 
 ### v6.2  
+
 ☑️ Positive|Negative入力欄: Enterで実行、Shift+Enterで改行  
 ✅ パッケージと台座に「指定しない」を追加  
 ✅ 「アクスタ｜アクキー｜ぬい｜コスプレ｜ジブリ風」追加、「フィギュア」を「ベーシック」に変更  
 ☑️ 各タイプ選択時のオプション自動セットロジックを実装  
-  * アクスタ： ベーシック、透明アクリル台座  
-  * アクキー、ぬい： ベーシック、台座なし  
-  * コスプレ、ジブリ風： ベーシック、指定しない（背景）、台座なし  
+
+* アクスタ： ベーシック、透明アクリル台座  
+* アクキー、ぬい： ベーシック、台座なし  
+* コスプレ、ジブリ風： ベーシック、指定しない（背景）、台座なし  
 
 ### v6.1  
+
 ☑️ カスタム修正 「Custom Prompt: 」接頭語追加  
 ✅ クリアーボタン 追加  
 ✅ 左右反転  
 
 ### v6.0  
+
 ☑️ ローディングアニメーションを追加 🐤  
 
 ### v5.4  
+
 ✅ ロゴ修正（ワンクリック導入）  
 
 ### v4.8  
+
 ✅ クローズアップボタン 追加  
 
 ### v4.5  
+
 ✅ 自動翻訳 ON|OFF 追加  
 
 ### v4.4  
+
 ✅ 「箱なし」で著作権チェックをスキップ  
 ✅ 自動修正前も履歴に入れる  
 ☑️ 固有名詞を翻訳しない  
 
 ### v4.3 の変更点  
+
 ✅ ライセンス表記を追加  
 ☑️ 自動翻訳にキャッシュを導入  
 ☑️ iPhoneでのダウンロードに対応  
@@ -194,6 +208,7 @@ These have been confirmed to contain **VIRUSES or MALWARE**.
 This app is designed specifically for the Gemini Canvas environment and cannot be run as a standalone file.  
 
 ### ⚖️ 法的措置と通報について / Legal Action & Abuse Reports  
+
 当プロジェクトの制作物に対する無断転載が確認されたため、過去に **DMCA Take-down通知** を送付しています。  
 また、マルウェアを配布する悪質なサイトについては、順次 **各機関へ通報 (Malware / Abuse Report)** を行っています。  
 We have filed **DMCA Take-down notices** against unauthorized re-uploads of my projects.  
@@ -232,8 +247,9 @@ Furthermore, we are actively submitting **Malware / Abuse Reports** to relevant 
 <pre>
 <img src="https://www.google.com/s2/favicons?domain=bsky.app&size=16" alt="Bluesky icon"> Bluesky       :<a href="https://bsky.app/profile/neon-ai.art/">https://bsky.app/profile/neon-ai.art/</a>
 <img src="https://www.google.com/s2/favicons?domain=github.com&size=16" alt="GitHub icon"> GitHub        :<a href="https://github.com/neon-aiart/">https://github.com/neon-aiart/</a>
-<img src="https://neon-aiart.github.io/favicon.ico" alt="neon-aiart icon" width="16" height="16"> GitHub Pages  :<a href="https://neon-aiart.github.io/">https://neon-aiart.github.io/</a>
+<img src="https://neon-aiart.github.io/favicon.ico" alt="neon-aiart icon" height="16"> GitHub Pages  :<a href="https://neon-aiart.github.io/">https://neon-aiart.github.io/</a>
 <img src="https://www.google.com/s2/favicons?domain=greasyfork.org&size=16" alt="Greasy Fork icon"> Greasy Fork   :<a href="https://greasyfork.org/ja/users/1494762/">https://greasyfork.org/ja/users/1494762/</a>
+<img src="https://www.google.com/s2/favicons?domain=zenn.dev&size=16" alt="Sizu icon"> Zenn Dev      :<a href="https://zenn.dev/neon_aiart/">https://zenn.dev/neon_aiart/</a>
 <img src="https://www.google.com/s2/favicons?domain=sizu.me&size=16" alt="Sizu icon"> Sizu Diary    :<a href="https://sizu.me/neon_aiart/">https://sizu.me/neon_aiart/</a>
 <img src="https://www.google.com/s2/favicons?domain=ofuse.me&size=16" alt="Ofuse icon"> Ofuse         :<a href="https://ofuse.me/neon/">https://ofuse.me/neon/</a>
 <img src="https://www.google.com/s2/favicons?domain=www.chichi-pui.com&size=16" alt="chichi-pui icon"> chichi-pui    :<a href="https://www.chichi-pui.com/users/neon/">https://www.chichi-pui.com/users/neon/</a>
