@@ -104,7 +104,7 @@ v6.4 (2026-02-10) [https://gemini.google.com/share/cdbce5ec46a6](https://gemini.
 
 ---
 
-## 📝 更新履歴 (v3.9 → v6.5)  
+## 📝 更新履歴 (Changelog)  
 
 ### v6.5 (Current Release)  
 
@@ -191,7 +191,7 @@ The source code for this application is copyrighted by Neon.
 
 ---
 
-## ⚠️ セキュリティ警告 / Security Warning  
+## ⚠️ セキュリティ警告 (Security Warning)  
 
 🚨 **重要：公式配布について / IMPORTANT: Official Distribution**  
 当プロジェクトの公式な実行環境は、**Gemini Canvas の共有リンク**のみです。  
@@ -207,7 +207,7 @@ These have been confirmed to contain **VIRUSES or MALWARE**.
 このアプリは Gemini Canvas 環境専用であり、ファイルをダウンロードして単独で実行することはできません。  
 This app is designed specifically for the Gemini Canvas environment and cannot be run as a standalone file.  
 
-### ⚖️ 法的措置と通報について / Legal Action & Abuse Reports  
+### ⚖️ 法的措置と通報について (Legal Action & Abuse Reports)  
 
 当プロジェクトの制作物に対する無断転載が確認されたため、過去に **DMCA Take-down通知** を送付しています。  
 また、マルウェアを配布する悪質なサイトについては、順次 **各機関へ通報 (Malware / Abuse Report)** を行っています。  
@@ -216,7 +216,7 @@ Furthermore, we are actively submitting **Malware / Abuse Reports** to relevant 
 
 ---
 
-### 🖼️ 生成したAIイラストについて / About Generated AI Illustrations  
+### 🖼️ 生成したAIイラストについて (About Generated AI Illustrations)  
 
 * **クレジット表記・使用報告などは一切不要です:** 生成した画像は自由にご利用いただけます。クレジット表記や使用報告の義務はありません。  
   **No Credit or Reporting Required:** You are free to use the generated images. There is no obligation to provide credit or report usage.  
