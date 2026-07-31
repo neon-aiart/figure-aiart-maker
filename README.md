@@ -118,6 +118,7 @@ v6.4 (2026-02-10) [https://gemini.google.com/share/cdbce5ec46a6](https://gemini.
 ### v6.5  
 
 ☑️ ライセンスを `PolyForm Noncommercial 1.0.0` に変更  
+✅ テキスト応答Geminiモデルを `gemini-2.5-flash-preview-09-2025` に変更
 
 ### v6.4  
 
