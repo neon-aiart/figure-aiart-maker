@@ -1,4 +1,4 @@
-# 🐥 フィギュア化メーカー (Figure AIart Maker) v6.5  
+# 🐥 フィギュア化メーカー (Figure AIart Maker) v6.6  
 
 <img src="https://raw.githubusercontent.com/neon-aiart/figure-maker-gemini-canvas/main/figure_maker_20250924_174842.png" style="height: 200px; width: 200px; object-fit: contain;" align="right" alt="Meshi Art Sample" />
 
@@ -28,12 +28,13 @@
 
 以下のリンクから、Gemini Canvas環境で直接アプリをご利用ください。  
 
-✨ **[フィギュア化メーカーを試す](https://gemini.google.com/share/aaca4e12ffd4)** ✨  
+✨ **[フィギュア化メーカーを試す](https://share.gemini.google/cB5uW9WW981D)** ✨  
 <!-- STATUS_START -->
 share link last update: 2026-02-20 (114 days ago)  
 <!-- STATUS_END -->
 
 **Old Version**:  
+v6.5 (2026-02-20) [https://gemini.google.com/share/aaca4e12ffd4](https://gemini.google.com/share/aaca4e12ffd4)  
 v6.4 (2026-02-10) [https://gemini.google.com/share/cdbce5ec46a6](https://gemini.google.com/share/cdbce5ec46a6)  
 
 ---
@@ -80,7 +81,7 @@ v6.4 (2026-02-10) [https://gemini.google.com/share/cdbce5ec46a6](https://gemini.
 * **ロゴ修正について:** 現状、指定した位置に**著作権保護対象が存在している**ということを生成AIが**認識している**ことと、それが**違法に生成されたもの**であると**認識している**ことは確認がとれています。  
   しかし、現在も**安全ポリシー**に縛られていて、別のところを修正したり、画質を少し粗くしたり、エラーを返してきたり、無意味な文字列の羅列を返してきたりして何らかの回避行動をとり、ロゴ削除を拒否してきます。  
   回避行動を禁止しても別の回避行動をとり、際限がないので、現状では、**生成段階でロゴが生成される確率を下げる**ことで対応しています。  
-  **使用している生成AI:** 画像生成と修正と著作権チェックには `gemini-2.5-flash-image-preview` （通称、nano-banana）、プロンプトの翻訳では `gemini-2.5-flash-preview-05-20` です。  
+  **使用している生成AI:** 画像生成と修正と著作権チェックには `gemini-3-flash-preview` （通称、Nano Banana 2）、プロンプトの翻訳では `gemini-3.1-flash-image` です。  
 
 * **フィギュア化しにくい場合の対処法:** 被写体や背景によってはフィギュア化しにくいです。  
   「木製のテーブルの上」「シンプルな白背景」などでフィギュア化をしてから**修正で背景を変える**のがおすすめ。  
@@ -106,16 +107,23 @@ v6.4 (2026-02-10) [https://gemini.google.com/share/cdbce5ec46a6](https://gemini.
 
 ## 📝 更新履歴 (Changelog)  
 
-### v6.5 (Current Release)  
+### v6.6 (Current Release)  
+
+✅ テキスト応答Geminiモデルを `gemini-3-flash-preview` に変更  
+✅ 画像生成モデルを `gemini-3.1-flash-image` (Nano Banana 2) に変更  
+☑️ 自動翻訳の初期値をOFFに変更  
+☑️ タイトル同期 [Gemini Canvas App Title Receiver](https://greasyfork.org/ja/scripts/574847) に対応  
+☑️ ４枚生成ボタンは実装予定が未確定なので非表示に変更  
+
+### v6.5  
 
 ☑️ ライセンスを `PolyForm Noncommercial 1.0.0` に変更  
-✅ テキスト応答Geminiモデルを `gemini-2.5-flash-preview-09-2025` に変更  
 
 ### v6.4  
 
-☑️ ４枚生成ボタン(未実装): disabledでscaleしちゃうの修正（実装されたらdisable削除）  
 ☑️ 新しく生成をするときに反転状態を解除  
 ☑️ 安全フィルターで生成AIに届く前に削除された場合は中断  
+☑️ ４枚生成ボタン(未実装): disabledでscaleしちゃうの修正（実装されたらdisable削除）  
 
 ### v6.3  
 
@@ -247,8 +255,8 @@ Furthermore, we are actively submitting **Malware / Abuse Reports** to relevant 
 * **Assistant & Core Developer**: Gemini  
 * **Special Thanks**:  
   * **Ecosystem Platform**: [Gemini Canvas](https://gemini.google.com/) by Google LLC  
-  * **Translation Engine**: [Gemini 3.5 Flash](https://ai.google.dev/) by Google LLC  
-  * **Core Image AI Engine**: [Nano Banana](https://deepmind.google/) by Google LLC
+  * **Translation Engine**: [Gemini 3 Flash](https://ai.google.dev/) by Google LLC  
+  * **Core Image AI Engine**: [Nano Banana 2](https://deepmind.google/) by Google LLC
 
 <pre>
 <img src="https://www.google.com/s2/favicons?domain=bsky.app&size=16" alt="Bluesky icon"> Bluesky       :<a href="https://bsky.app/profile/neon-ai.art/">https://bsky.app/profile/neon-ai.art/</a>

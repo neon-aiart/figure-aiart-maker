@@ -471,7 +471,7 @@
                     <option value="9:16">9:16 （縦長 動画サイズ）</option>
                 </select>
                 <div class="h-full flex items-center justify-center">
-                    <button id="multi-generate-toggle" data-is-multi="false" class="w-auto h-10 bg-blue-500 hover:bg-blue-400 text-white font-bold py-3 px-4 rounded-full text-sm transition-transform transform hover:scale-105 duration-150 ease-in-out flex items-center justify-center disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100" disabled>
+                    <button id="multi-generate-toggle" data-is-multi="false" class="w-auto h-10 bg-blue-500 hover:bg-blue-400 text-white font-bold py-3 px-4 rounded-full text-sm transition-transform transform hover:scale-105 duration-150 ease-in-out flex items-center justify-center disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 hidden" disabled>
                         <span class="material-symbols-outlined align-middle mr-2">grid_view</span>
                         <span>４枚</span>
                     </button>
@@ -489,7 +489,7 @@
                         追加のプロンプト
                         <div class="ml-4 flex items-center">
                             <label for="autoTranslateSwitch" class="text-sm font-normal text-gray-400 mr-2">自動翻訳:</label>
-                            <input type="checkbox" id="autoTranslateSwitch" class="form-checkbox h-4 w-4 text-gray-400 border-gray-400 transition duration-150 ease-in-out" checked>
+                            <input type="checkbox" id="autoTranslateSwitch" class="form-checkbox h-4 w-4 text-gray-400 border-gray-400 transition duration-150 ease-in-out">
                         </div>
                         <div class="tooltip-container">
                             <span class="material-symbols-outlined info-icon relative top-[3px]">info</span>
@@ -566,7 +566,7 @@
                             ここを修正して！
                             <div class="ml-4 flex items-center">
                                 <label for="customTranslateSwitch" class="text-sm font-normal text-gray-400 mr-2">（自由に修正プロンプトを入力） 自動翻訳:</label>
-                                <input type="checkbox" id="customTranslateSwitch" class="form-checkbox h-4 w-4 text-gray-400 border-gray-400 transition duration-150 ease-in-out" checked>
+                                <input type="checkbox" id="customTranslateSwitch" class="form-checkbox h-4 w-4 text-gray-400 border-gray-400 transition duration-150 ease-in-out">
                             </div>
                         </h3>
                         <div class="flex items-center gap-2">
@@ -587,7 +587,7 @@
 
     <script>
         /* Copyright (c) 2025-2026 ねおん / Licensed under PolyForm Noncommercial 1.0.0 (https://polyformproject.org/licenses/noncommercial/1.0.0/) */
-        const APP_VERSION = '6.5';
+        const APP_VERSION = '6.6';
 
         document.title = `🐥 フィギュア化メーカー v${APP_VERSION}`;
         const appVersionSpan = document.getElementById('app-version');
@@ -850,7 +850,7 @@
                 }
             });
 
-            // 【左右反転ボタンのイベントリスナー追加】
+            // 左右反転ボタンのイベントリスナー追加
             elements.flipImageBtn.addEventListener('click', () => {
                 if (!uploadedImageData) {
                     return;
@@ -894,6 +894,13 @@
                 }
             });
 
+            // ウィンドウタイトルを同期するためのコード
+            setInterval(() => {
+                if (document.title !== '') {
+                    window.parent.postMessage({ type: 'SYNC_TITLE', title: document.title, }, '*');
+                }
+            }, 2000);
+
             updateActionButtonsState();
             updateResetButtonVisibility();
             updateCustomButtonState();
@@ -922,8 +929,8 @@
             async function callGeminiAPI(payload) {
                 const apiKey = "";
                 const model = payload.contents[0].parts.some(p => p.inlineData)
-                    ? 'gemini-2.5-flash-image-preview'    // 画像含むなら画像モデル
-                    : 'gemini-2.5-flash-preview-09-2025'; // テキストのみならテキストモデル
+                    ? 'gemini-3.1-flash-image'  // 画像含むなら画像モデル
+                    : 'gemini-3-flash-preview'; // テキストのみならテキストモデル
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify(payload), });
@@ -958,7 +965,7 @@
                     generationConfig: { responseModalities: ['TEXT',], },
                 };
                 try {
-                    const result = await callGeminiAPI(payload); // callGeminiAPIが gemini-2.5-flash を選択する
+                    const result = await callGeminiAPI(payload); // callGeminiAPIが モデル を選択する
                     const answer = result.candidates[0].content.parts[0].text.trim();
                     return answer.toUpperCase() === 'NONE' ? null : answer;
                 } catch (error) {
